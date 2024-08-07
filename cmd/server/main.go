@@ -13,7 +13,6 @@ import (
 )
 
 func main() {
-	CreateImage([]string{"Grid 6.0"}, []int{75}, 0)
 	http.HandleFunc("/", handler)
 	http.HandleFunc("/set", set)
 	http.ListenAndServe(":8080", nil)

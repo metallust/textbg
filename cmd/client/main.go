@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/metallust/textbg/pkg/request"
 )
@@ -33,7 +34,10 @@ func main() {
 	var spacing int
 	fmt.Scanf("%d", &spacing)
 
-    url := "<server url>"
+    url := os.Getenv("TEXTBGURL")
+    if url == `` {
+        panic("TEXTBGURL is not set")
+    }
 
     req := request.Setin{
     	Sentence: texts,
@@ -42,7 +46,7 @@ func main() {
     }
 
     jsonbytes, _ := json.Marshal(req)
-    res, err := http.Post(url, "application/json", bytes.NewBuffer(jsonbytes))
+    res, err := http.Post(url + "/set", "application/json", bytes.NewBuffer(jsonbytes))
     if err != nil {
         panic(err)
     }
